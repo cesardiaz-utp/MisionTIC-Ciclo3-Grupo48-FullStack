@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <DrawerBar :drawer="drawer" :title="name" :username="email"></DrawerBar>
+    <DrawerBar :drawer="drawer" :title="name"></DrawerBar>
 
     <AppBar
       :title="name"
@@ -37,7 +37,6 @@ export default {
   },
   data: () => ({
     name: "Cesar's Store",
-    email: "cdiaz@example.com",
     drawer: null,
   }),
   methods: {
