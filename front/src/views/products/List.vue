@@ -25,8 +25,8 @@
             </v-chip-group>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="success">Editar</v-btn>
-              <v-btn color="error">Eliminar</v-btn>
+              <v-btn color="success" @click="editarProducto(product.code)">Editar</v-btn>
+              <v-btn color="error" @click="eliminarProducto(product.code)">Eliminar</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { getAllProducts } from "../../services/Products.service";
+import { getAllProducts, deleteProduct } from "../../services/Products.service";
 
 export default {
   data() {
@@ -51,6 +51,19 @@ export default {
       })
       .catch((err) => console.error(err));
   },
+  methods: {
+    editarProducto(code){
+      this.$router.push(`/products/${code}`);
+    },
+    eliminarProducto(code){
+      deleteProduct(code)
+      .then(() => { 
+        console.log("Exito");
+        this.products = this.products.filter((item) => item.code != code);
+      })
+      .catch(() => { console.log("Error")})  
+    }
+  }
 };
 </script>
 

@@ -3,7 +3,7 @@
     {{ message }}
 
     <template v-slot:action="{ attrs }">
-      <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+      <v-btn color="red" text v-bind="attrs" @click="close()">
         Close
       </v-btn>
     </template>
@@ -12,10 +12,9 @@
 
 <script>
 export default {
-  props: ["message"],
+  props: ["message", "snackbar", "close"],
   data: () => ({
     multiLine: true,
-    snackbar: false,
   }),
 };
 </script>
