@@ -20,7 +20,7 @@ module.exports = class ProductsController {
                 res.status(404).json();
             }
         } catch (err) {
-            res.status(400).json({ message: err.message });
+            res.status(502).json({ message: err.message });
         }
     }
 
