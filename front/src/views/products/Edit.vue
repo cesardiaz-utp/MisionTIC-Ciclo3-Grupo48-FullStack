@@ -1,6 +1,12 @@
 <template>
   <v-container>
     <h1>{{ title }}</h1>
+    <v-file-input
+      v-if="!isEdit"
+      v-model="image"
+      accept="image/*"
+      label="File input"
+    ></v-file-input>
     <v-text-field label="Code *" v-model="code" :rules="rules"></v-text-field>
     <v-text-field label="Name *" v-model="name" :rules="rules"></v-text-field>
     <v-text-field label="Price* " v-model="price" :rules="rules"></v-text-field>
@@ -47,6 +53,7 @@ import {
   insertProduct,
   getProduct,
   updateProduct,
+  insertProductWithImage,
 } from "../../services/Products.service";
 import SuccessMessage from "../../components/SuccessMessage.vue";
 import ErrorMessage from "../../components/ErrorMessage.vue";
@@ -63,6 +70,7 @@ export default {
       name: "",
       price: 0,
       categories: [],
+      image: null,
       isEdit: false,
       successMessage: "",
       successShow: false,
@@ -103,19 +111,40 @@ export default {
         return;
       }
 
-      const product = {
-        code: this.code,
-        name: this.name,
-        price: this.price,
-        categories: this.categories,
-      };
-      insertProduct(product)
+      let request = null;
+      if (this.image != null && this.image != undefined) {
+        const product = new FormData();
+        product.append("code", this.code);
+        product.append("name", this.name);
+        product.append("price", this.price);
+        product.append("categories", this.categories);
+        product.append("image", this.image);
+
+        console.log("Entro con imagen", product);
+        request = insertProductWithImage(product);
+      } else {
+        const product = {
+          code: this.code,
+          name: this.name,
+          price: this.price,
+          categories: this.categories,
+        };
+
+        console.log("Entro sin imagen:", product);
+        request = insertProduct(product);
+      }
+
+      console.log(request);
+      request
         .then((response) =>
           this.openSuccessDialog(
             "Se ha creado el producto: " + response.data._id
           )
         )
-        .catch(() => this.openErrorDialog("Error al guardar el producto"));
+        .catch((err) => {
+          console.error(err.response.data.message);
+          this.openErrorDialog("Error al guardar el producto");
+        });
     },
     actualizar() {
       if (

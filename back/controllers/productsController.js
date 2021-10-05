@@ -27,6 +27,10 @@ module.exports = class ProductsController {
     static async insert(req, res) {
         try {
             const product = req.body;
+            if (req.file != undefined) {
+                const imageName = req.file.filename;
+                product.imageUrl = "/" + imageName;
+            }
             const newProduct = await productModel.create(product);
             res.status(201).json(newProduct);
         } catch (err) {
@@ -49,6 +53,17 @@ module.exports = class ProductsController {
         try {
             const code = req.params.code;
             await productModel.deleteOne({ "code": code });
+            res.status(200).json();
+        } catch (err) {
+            res.status(400).json({ message: err.message });
+        }
+    }
+
+    static async changeProductImage(req, res) {
+        try {
+            const code = req.params.code;
+            const imageName = req.file.filename;
+            await productModel.updateOne({ "code": code }, { "imageUrl": "/" + imageName });
             res.status(200).json();
         } catch (err) {
             res.status(400).json({ message: err.message });

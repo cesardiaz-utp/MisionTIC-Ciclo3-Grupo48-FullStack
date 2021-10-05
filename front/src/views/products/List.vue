@@ -6,13 +6,16 @@
         >Add new product</v-btn
       >
       <v-row>
-        <v-col
-          v-for="product in products"
-          :key="product.code"
-          md="4"
-          sm="6"
-        >
+        <v-col v-for="product in products" :key="product.code" md="4" sm="6">
           <v-card elevation="2" class="mx-auto">
+            <v-img
+              :src="
+                product.imageUrl == undefined
+                  ? 'https://isocarp.org/app/uploads/2014/05/noimage.jpg'
+                  : product.imageUrl
+              "
+            ></v-img>
+
             <v-card-title>{{ product.name }}</v-card-title>
             <v-card-subtitle
               ><b>Price:</b> $ {{ product.price }}
@@ -25,8 +28,12 @@
             </v-chip-group>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="success" @click="editarProducto(product.code)">Editar</v-btn>
-              <v-btn color="error" @click="eliminarProducto(product.code)">Eliminar</v-btn>
+              <v-btn color="success" @click="editarProducto(product.code)"
+                >Editar</v-btn
+              >
+              <v-btn color="error" @click="eliminarProducto(product.code)"
+                >Eliminar</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-col>
@@ -52,18 +59,20 @@ export default {
       .catch((err) => console.error(err));
   },
   methods: {
-    editarProducto(code){
+    editarProducto(code) {
       this.$router.push(`/products/${code}`);
     },
-    eliminarProducto(code){
+    eliminarProducto(code) {
       deleteProduct(code)
-      .then(() => { 
-        console.log("Exito");
-        this.products = this.products.filter((item) => item.code != code);
-      })
-      .catch(() => { console.log("Error")})  
-    }
-  }
+        .then(() => {
+          console.log("Exito");
+          this.products = this.products.filter((item) => item.code != code);
+        })
+        .catch(() => {
+          console.log("Error");
+        });
+    },
+  },
 };
 </script>
 
@@ -74,5 +83,9 @@ export default {
 
 .v-slide-group__content {
   justify-content: center;
+}
+
+v-image__image {
+  background-size: auto 150px;
 }
 </style>
