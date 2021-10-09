@@ -2,16 +2,14 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
+  "main": "app.js",
   "scripts": {
-    "start": "npm run prod && node app.js",
+    "start": "node app.js",
     "dev": "nodemon app.js",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "prod": "vue-cli-service build --mode production --dest site",
+    "build": "vue-cli-service build --dest site",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
-    "deploy": "git push heroku master",
-    "prod-deploy": "npm run prod && npm run deploy"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.21.4",
