@@ -3,18 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "prod": "rm -rf ../back/site && vue-cli-service build --mode production --dest ../back/site",
+    "prod": "vue-cli-service build --mode production --dest site",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "git subtree push --prefix back heroku master"
   },
   "dependencies": {
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vuetify": "^2.4.0"
+    "vuetify": "^2.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.7",
+    "multer": "^1.4.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -30,6 +38,7 @@
     "sass-loader": "^10.0.0",
     "vue-cli-plugin-vuetify": "~2.4.2",
     "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.7.0"
+    "vuetify-loader": "^1.7.0",
+    "nodemon": "^2.0.12"
   }
 }
