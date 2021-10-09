@@ -11,13 +11,13 @@ module.exports = class ProductsController {
     }
 
     static async getByCode(req, res) {
-        const code = req.params.code;
         try {
+            const code = req.params.code;
             const product = await productModel.findOne({ "code": code });
             if (product != null) {
                 res.status(200).json(product);
             } else {
-                res.status(404).json();
+                res.status(404).json({ message: "No encontrado en la base de datos" });
             }
         } catch (err) {
             res.status(502).json({ message: err.message });

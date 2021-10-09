@@ -4,19 +4,19 @@
     <v-card-text>
       <v-text-field
         label="Email"
-        prepend-icon="mdi-at"
         :rules="rulesEmail"
-        hide-details="auto"
+        prepend-icon="mdi-at"
         v-model="email"
       ></v-text-field>
 
       <v-text-field
         label="Contraseña"
-        prepend-icon="mdi-lock"
         :rules="rulesPassword"
-        hide-details="auto"
+        :type="showPassword ? 'text' : 'password'"
+        prepend-icon="mdi-lock"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         v-model="password"
-        type="password"
+        @click:append="showPassword = !showPassword"
       ></v-text-field>
 
       <v-alert border="left" color="red lighten-2" dark v-model="showError">
