@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "prod": "rm -rf ../back/site && vue-cli-service build --mode production --dest ../back/site",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },

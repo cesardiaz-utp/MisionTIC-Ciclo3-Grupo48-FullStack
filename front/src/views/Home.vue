@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>Welcome to my store</h1>
+    <h1>Welcome to my special store</h1>
     <v-text-field
       color="success"
       :loading="loadingState"
