@@ -10,7 +10,8 @@
     "prod": "vue-cli-service build --mode production --dest site",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "deploy": "git subtree push --prefix back heroku master"
+    "deploy": "git push heroku master",
+    "prod-deploy": "npm run prod && npm run deploy"
   },
   "dependencies": {
     "axios": "^0.21.4",
